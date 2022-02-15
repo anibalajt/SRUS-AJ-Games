@@ -1,5 +1,5 @@
-from App.player import Player
-
+from app.player import Player
+  
 class Player_test:
     def __init__(self):
         self.player_name = "John"
@@ -16,10 +16,6 @@ class Player_test:
 
     def test_player_str(self):
         assert str(
-            self.player_object) == f"Player: {self.player_name} with id: {self.player_uid}"
+            self.player_object) == "Player: "+self.player_name+" with id: "+self.player_uid
 
 
-a = Player_test()
-print(a.test_player_uid())
-print(a.test_player_name())
-print(a.test_player_str())

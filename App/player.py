@@ -15,7 +15,3 @@ class Player:
         return (f"Player: {self.__name} with id: {self.__uid}")
 
 
-t = Player(90, "John")
-print(t.uid)
-print(t.name)
-print(t.__str__())
