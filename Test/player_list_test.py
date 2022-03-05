@@ -1,71 +1,81 @@
-import pytest
+# Player List DoubleLinkedList class
+#
+# Filename: player_list.py
+# Project: SRUS-HS-Games
+# Author: Andres Jarava <200700718@tafe.wa.edu.au>
+# Date Created: 16/2/22
+# ----------------------------------------------------------------------
+
+import unittest
 from app.player_list import DoubleLinkedList
 from app.player import Player
-
-class TestClass:
-    def __init__(self):
-        self.player_name = "John"
-        self.player_uid = "John"
-        self.player_object = Player(self.player_uid, self.player_name)
-        self.player_uid_returned = self.player_object.uid
-        self.player_name_returned = self.player_object.name
-        self.player_list = DoubleLinkedList()
-
-    def test_player_uid(self):
-        assert self.player_uid_returned == self.player_uid
-
-    def test_player_name(self):
-        assert self.player_name_returned == self.player_name
-
-    def test_player_str(self):
-        assert str(
-            self.player_object) == "Player: "+self.player_name+" with id: "+self.player_uid
-
-    def test_player_list_insert_head(self):
-        self.player_list.insert_head(self.player_object)
-        assert self.player_list.size == 1
-
-    def test_player_list_insert_tail(self):
-        self.player_list.insert_tail(self.player_object)
-        assert self.player_list.size == 1
-
-    def test_player_list_delete_head(self):
-        self.player_list.insert_head(self.player_object)
-        self.player_list.delete_head()
-        assert self.player_list.size == 0
-
-    def test_player_list_delete_tail(self):
-        self.player_list.insert_tail(self.player_object)
-        self.player_list.delete_tail()
-        assert self.player_list.size == 0
-
-    def test_player_list_delete_head_empty(self):
-        with pytest.raises(Exception):
-            self.player_list.delete_head()
-
-    def test_player_list_delete_tail_empty(self):
-        with pytest.raises(Exception):
-            self.player_list.delete_tail()
-
-    def test_player_list_str_empty(self):
-        assert str(self.player_list) == "Empty list"
-
-    def test_player_list_str(self):
-        self.player_list.insert_head(self.player_object)
-        assert str(self.player_list) == "Player: "+self.player_name+" with id: "+self.player_uid
-
-    def test_player_list_str_multiple(self):
-        self.player_list.insert_head(self.player_object)
-        self.player_list.insert_tail(self.player_object)
-        assert str(self.player_list) == "Player: "+self.player_name+" with id: "+self.player_uid+"\n"+"Player: "+self.player_name+" with id: "+self.player_uid
+from app.player_node import PlayerNode
 
 
+# test case for DoubleLinkedList class
+class DoubleLinkedListTestCase(unittest.TestCase):
+    """
+    test case for DoubleLinkedList class
+    """
 
-# class TestClass:
-#     def test_one(self):
-#         x = "this"
-#         assert "h" in x
+    def setUp(self):
+        """
+        set up test
+        """
 
-#     def test_two(self):
-#         x = "hello"
-#         assert hasattr(x, "check")
+        self.player_name = "Andres"
+        self.player_id = "1"
+        self.player_object = Player(self.player_id, self.player_name)
+
+        self.player_name2 = "Cindy"
+        self.player_id2 = "2"
+        self.player_object2 = Player(self.player_id2, self.player_name2)
+
+        self.player_name3 = "Bobby"
+        self.player_id3 = "3"
+        self.player_object3 = Player(self.player_id3, self.player_name3)
+
+        self.list = DoubleLinkedList()
+        self.list.insert_head(PlayerNode(self.player_object))
+        self.list.insert_tail(PlayerNode(self.player_object2))
+
+    def test_size(self):
+        """
+        test size
+        """
+        assert self.list.size == 2
+
+    def test_insert_head(self):
+        """
+        test insert head
+        """
+        self.list.insert_head(PlayerNode(self.player_object3))
+        assert self.list.size == 3
+
+    def test_insert_tail(self):
+        """
+        test insert tail
+        """
+        self.list.insert_tail(PlayerNode(self.player_object3))
+        assert self.list.size == 3
+
+    def test_delete_head(self):
+        """
+        test delete head
+        """
+        self.list.delete_head()
+        assert self.list.size == 1
+
+    def test_delete_tail(self):
+        """
+        test delete tail
+        """
+        self.list.delete_tail()
+        assert self.list.size == 1
+
+    def test_str(self):
+        """
+        test str
+        """
+        assert str(self.list) == "Player: " + self.player_name + " with id: " + self.player_id + \
+            "\n" + "Player: " + self.player_name2 + " with id: " + self.player_id2 + "\n"

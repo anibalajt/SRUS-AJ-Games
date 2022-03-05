@@ -1,43 +1,78 @@
-# a. create a new class called PlayerNode. Add an initialiser method that takes a single
-# argument called player and create 3 private instances variables. Assign the variable player to a
-# private instance variable. The other two instance variables will point to the next and the previous
-# node. Initialise those instance variables to None.
-# b. Create the necessary getters (properties) and setters for this class. You may not need a setter for
-# every instance variable.
-# c. Create a property called key, which simply returns the uid property of the instance variable for the
-# player object.
-# d. Add a method __str__ to the PlayerNode class, which returns a string representing the node object.
+# Player node
+#
+# Filename: player_node.py
+# Project: SRUS-HS-Games
+# Author: Andres Jarava <200700718@tafe.wa.edu.au>
+# Date Created: 16/2/22
+# ----------------------------------------------------------------------
 
 class PlayerNode:
+    """
+    Player node class
+    """
+
     def __init__(self, player):
+        """
+        Constructor
+        @param player: player object
+        @param next: next node
+        @param prev: previous node
+        """
         self.__player = player
         self.__next = None
         self.__prev = None
 
     @property
     def player(self):
+        """
+        Getter for player
+        @return: player object
+        """
         return self.__player
 
     @property
     def next(self):
+        """
+        Getter for next node
+        @return: next node
+        """
         return self.__next
 
     @next.setter
     def next(self, next):
+        """
+        Setter for next node
+        @param next: next node
+        """
         self.__next = next
 
     @property
     def prev(self):
+        """
+        Getter for previous node
+        @return: previous node
+        """
         return self.__prev
 
     @prev.setter
     def prev(self, prev):
+        """
+        Setter for previous node
+        @param prev: previous node
+        """
         self.__prev = prev
 
     @property
     def key(self):
-        return self.__player.uid
+        """
+        Getter for key
+        @return: key
+        """
+        return self.__player.id
 
     def __str__(self):
-        return (f"Player: {self.__player.name} with id: {self.__player.uid}")
-        
+        """
+        String representation of node
+        @return: string
+        """
+        return self.__player.__str__()

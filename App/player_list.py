@@ -1,122 +1,172 @@
-# create a new class that implements a
-# double linked list (sometimes called a doubly linked list), so the game that uses the list can easily
-# move from player to player in both directions, which is one of the requirements
-# Create a method that allows you to insert a new node at the head of the list. You should consider two
-# possibilities: the list is empty, or the list is not empty. For this purpose, you may consider adding a
-# new method or property that tells you whether the list is empty. For example, you might call it
-# is_empty and have it return a Boolean.
+# Player list
+#
+# Filename: player_list.py
+# Project: SRUS-HS-Games
+# Author: Andres Jarava <200700718@tafe.wa.edu.au>
+# Date Created: 16/2/22
+# ----------------------------------------------------------------------
+
+from .player_node import PlayerNode
+# from player import Player
+
 
 class DoubleLinkedList:
+    """
+    Double linked list class
+    """
+
     def __init__(self):
+        """
+        Constructor
+        @param head: head node
+        @param tail: tail node
+        @param size: size of list
+        """
         self.__head = None
         self.__tail = None
         self.__size = 0
 
     @property
     def size(self):
+        """
+        Getter for size
+        @return: size of list
+        """
         return self.__size
 
     def insert_head(self, player):
+        """
+        Insert player at the start of the list
+        @param player: player object
+        """
+        # Create new node
         node = PlayerNode(player)
-        if self.__head is None:
+        if self.__head is None:  # If list is empty
+            # Set head and tail to new node
             self.__head = node
             self.__tail = node
-        else:
+        else:  # If list is not empty
+            # Set new node's next to head
             node.next = self.__head
+            # Set head's prev to new node
             self.__head.prev = node
+            # Set head to new node
             self.__head = node
+        # Increase size
         self.__size += 1
 
     def insert_tail(self, player):
+        """
+        Insert player at the end of the list
+        @param player: player object
+        """
+        # Create new node
         node = PlayerNode(player)
-        if self.__head is None:
+        if self.__head is None:  # If list is empty
+            # Set head and tail to new node
             self.__head = node
             self.__tail = node
-        else:
+        else:  # If list is not empty
+            # Set new node's prev to tail
             node.prev = self.__tail
+            # Set tail's next to new node
             self.__tail.next = node
+            # Set tail to new node
             self.__tail = node
+        # Increase size
         self.__size += 1
 
     def delete_head(self):
+        """
+        Delete head node
+        """
         if self.__head is None:
-            raise Exception("The list is empty")
+            return
         else:
+            # Set head to next node
             self.__head = self.__head.next
+            # Set head's prev to None
             self.__head.prev = None
+            # Decrease size
             self.__size -= 1
-            if self.__head is None:
-                self.__tail = None
-            return self.__head
 
     def delete_tail(self):
+        """
+        Delete tail node
+        """
         if self.__tail is None:
-            return None
+            return
         else:
+            # Set tail to prev node
             self.__tail = self.__tail.prev
+            # Set tail's next to None
             self.__tail.next = None
+            # Decrease size
             self.__size -= 1
-            if self.__tail is None:
-                self.__head = None
-            return self.__tail
+
+    def delete_by_Key(self, key):
+        """
+        Delete node with specified key
+        @param key: key of node to delete
+        """
+        if self.__head is None:
+            return
+        else:
+            node = self.__head
+            while node is not None:
+                if node.player.key == key:
+                    if node.prev is None:
+                        self.delete_head()
+                    elif node.next is None:
+                        self.delete_tail()
+                    else:
+                        node.prev.next = node.next
+                        node.next.prev = node.prev
+                        self.__size -= 1
+                    return
+                node = node.next
 
     def __str__(self):
+        """
+        String representation of list
+        @return: string
+        """
         if self.__head is None:
             return "Empty list"
         else:
-            current_node = self.__head
-            result = ""
-            while current_node is not None:
-                result += f"{current_node} -> "
-                current_node = current_node.next
-            return result
+            node = self.__head
+            string = ""
+            while node is not None:
+                string += str(node.player) + "\n"
+                node = node.next
+            return string
 
 
-class PlayerNode:
-    def __init__(self, player):
-        self.__player = player
-        self.__next = None
-        self.__prev = None
-
-    @property
-    def player(self):
-        return self.__player
-
-    @property
-    def next(self):
-        return self.__next
-
-    @next.setter
-    def next(self, next):
-        self.__next = next
-
-    @property
-    def prev(self):
-        return self.__prev
-
-    @prev.setter
-    def prev(self, prev):
-        self.__prev = prev
-
-    @property
-    def key(self):
-        return self.__player.uid
-
-    def __str__(self):
-        return (f"Player: {self.__player.name} with id: {self.__player.uid}")
-
-
-class PlayerList:
-    def __init__(self):
-        self.head = None
-
-    def append(self, value):
-        if self.head is None:
-            self.head = DoubleLinkedList(value)
-        else:
-            self.head.append(value)
-
-    def remove(self, value):
-        if self.head is not None:
-            self.head.remove(value)
-
+# if __name__ == "__main__":
+#     # Create list
+#     list = DoubleLinkedList()
+#     # Insert players
+#     list.insert_head(PlayerNode(Player("Andres", 1)))
+#     list.insert_head(PlayerNode(Player("Bobby", 2)))
+#     list.insert_head(PlayerNode(Player("Cindy", 3)))
+#     list.insert_head(PlayerNode(Player("Denny", 4)))
+#     list.insert_tail(PlayerNode(Player("Eddy", 5)))
+#     list.insert_tail(PlayerNode(Player("Fanny", 6)))
+#     list.insert_tail(PlayerNode(Player("Gerry", 7)))
+#     list.insert_tail(PlayerNode(Player("Harry", 8)))
+#     # Print list
+#     print(list)
+#     # Delete head node
+#     print(list.delete_head())
+#     # Delete tail node
+#     print(list.delete_tail())
+#     # Print list
+#     print(list)
+#     # Delete head node
+#     print(list.delete_head())
+#     # Delete tail node
+#     print(list.delete_tail())
+#     # Print list
+#     print(list)
+#     # Delete head node
+#     print(list.delete_head())
