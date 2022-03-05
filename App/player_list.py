@@ -126,6 +126,22 @@ class DoubleLinkedList:
                     return
                 node = node.next
 
+    def display(self, forward=True):
+        """
+        Iterate over list
+        @param forward: direction to iterate
+        """
+        if forward:
+            node = self.__head
+            while node is not None:
+                print(node.player)
+                node = node.next
+        else:
+            node = self.__tail
+            while node is not None:
+                print(node.player)
+                node = node.prev
+
     def __str__(self):
         """
         String representation of list
@@ -143,17 +159,18 @@ class DoubleLinkedList:
 
 
 # if __name__ == "__main__":
-#     # Create list
-#     list = DoubleLinkedList()
-#     # Insert players
-#     list.insert_head(PlayerNode(Player("Andres", 1)))
-#     list.insert_head(PlayerNode(Player("Bobby", 2)))
-#     list.insert_head(PlayerNode(Player("Cindy", 3)))
-#     list.insert_head(PlayerNode(Player("Denny", 4)))
-#     list.insert_tail(PlayerNode(Player("Eddy", 5)))
-#     list.insert_tail(PlayerNode(Player("Fanny", 6)))
-#     list.insert_tail(PlayerNode(Player("Gerry", 7)))
-#     list.insert_tail(PlayerNode(Player("Harry", 8)))
+    # Create list
+    # list = DoubleLinkedList()
+    # Insert players
+    # list.insert_head(PlayerNode(Player("1", "Andres")))
+    # list.insert_head(PlayerNode(Player("2", "Bobby")))
+    # list.insert_head(PlayerNode(Player("3", "Cindy")))
+    # list.insert_head(PlayerNode(Player("4", "Denny")))
+    # list.insert_tail(PlayerNode(Player("5", "Eddy")))
+    # list.insert_tail(PlayerNode(Player("6", "Fanny")))
+    # list.insert_tail(PlayerNode(Player("7", "Gerry")))
+    # list.insert_tail(PlayerNode(Player("8", "Harry")))
+    # list.display(True)
 #     # Print list
 #     print(list)
 #     # Delete head node
