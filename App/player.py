@@ -5,6 +5,8 @@
 # Author: Andres Jarava <200700718@tafe.wa.edu.au>
 # Date Created: 16/2/22
 # ----------------------------------------------------------------------
+from argon2 import PasswordHasher
+
 
 class Player:
     """
@@ -36,6 +38,24 @@ class Player:
         """
         return self.__name
 
+    def add_password(self, password):
+        """
+        Add password to player
+        @param password: plaintext password
+        """
+        self.__password = PasswordHasher().hash(password)
+
+    def verify_password(self, password):
+        """
+        Verify password
+        @param password: plaintext password
+        @return: True if password matches, False otherwise
+        """
+        try:
+            return PasswordHasher().verify(self.__password, password)
+        except Exception:
+            return False
+
     def __str__(self):
         """
         String representation of player
@@ -46,4 +66,9 @@ class Player:
 
 # if __name__ == "__main__":
 #     player = Player("1", "Andres")
+#     player.add_password("password")
+#     print('password ', player.verify_password("password"))
+#     print('password ', player.verify_password("wrong_password"))
 #     print(player)
+#     print(player.id)
+#     print(player.name)

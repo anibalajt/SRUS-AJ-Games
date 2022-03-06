@@ -14,6 +14,7 @@ class PlayerTestCase(unittest.TestCase):
     """
     Test class for Player
     """
+
     def setUp(self):
         """
         Set up test
@@ -36,6 +37,27 @@ class PlayerTestCase(unittest.TestCase):
         Test player name
         """
         assert self.player_name_returned == self.player_name
+
+    def test_player_add_password(self):
+        """
+        Test player add password
+        """
+        self.player_object.add_password("password")
+        assert self.player_object.verify_password("password")
+
+    def test_player_verify_password(self):
+        """
+        Test player verify password
+        """
+        self.player_object.add_password("password")
+        assert self.player_object.verify_password("password")
+
+    def test_player_verify_password_false(self):
+        """
+        Test player verify password false
+        """
+        self.player_object.add_password("password")
+        assert not self.player_object.verify_password("wrong password")
 
     def test_player_str(self):
         """
