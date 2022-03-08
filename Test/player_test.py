@@ -66,6 +66,24 @@ class PlayerTestCase(unittest.TestCase):
         assert str(
             self.player_object) == "Player: " + self.player_name + " with id: " + self.player_id
 
+    def test_bubble_sort(self):
+        """
+        Test bubble sort
+        """
+        players = [Player("1", "Andres"), Player("2", "John"), Player("3", "Jane")]
+        players[0].score = 10
+        players[1].score = 5
+        players[2].score = 15
+
+        Player.bubble_sort(players)
+
+        assert players[0].name == 'Jane'
+        assert players[1].name == 'Andres'
+        assert players[2].name == 'John'
+
+    
+
+
 
 if __name__ == "__main__":
     unittest.main()

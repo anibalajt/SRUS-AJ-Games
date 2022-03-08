@@ -6,8 +6,8 @@
 # Date Created: 16/2/22
 # ----------------------------------------------------------------------
 
-from .player_node import PlayerNode
-# from player import Player
+from player_node import PlayerNode
+from player import Player
 
 
 class DoubleLinkedList:
@@ -157,33 +157,80 @@ class DoubleLinkedList:
                 node = node.next
             return string
 
+    def sort(self):
+        """
+        Sort list
+        """
+        if self.__head is None:
+            return
+        else:
+            node = self.__head
+            while node is not None:
+                if node.next is not None:
+                    if node.player.score < node.next.player.score:
+                        node.player, node.next.player = node.next.player, node.player
+                node = node.next
 
-# if __name__ == "__main__":
+
+if __name__ == "__main__":
     # Create list
-    # list = DoubleLinkedList()
+    list = DoubleLinkedList()
     # Insert players
-    # list.insert_head(PlayerNode(Player("1", "Andres")))
-    # list.insert_head(PlayerNode(Player("2", "Bobby")))
-    # list.insert_head(PlayerNode(Player("3", "Cindy")))
-    # list.insert_head(PlayerNode(Player("4", "Denny")))
-    # list.insert_tail(PlayerNode(Player("5", "Eddy")))
-    # list.insert_tail(PlayerNode(Player("6", "Fanny")))
-    # list.insert_tail(PlayerNode(Player("7", "Gerry")))
-    # list.insert_tail(PlayerNode(Player("8", "Harry")))
-    # list.display(True)
-#     # Print list
-#     print(list)
-#     # Delete head node
-#     print(list.delete_head())
-#     # Delete tail node
-#     print(list.delete_tail())
-#     # Print list
-#     print(list)
-#     # Delete head node
-#     print(list.delete_head())
-#     # Delete tail node
-#     print(list.delete_tail())
-#     # Print list
-#     print(list)
-#     # Delete head node
-#     print(list.delete_head())
+    p1 = Player("1", "Andres")
+    p1.score = 10
+    list.insert_head(PlayerNode(p1))
+
+    p2 = Player("2", "Bobby")
+    p2.score = 20
+    list.insert_head(PlayerNode(p2))
+
+    p3 = Player("3", "Cindy")
+    p3.score = 30
+    list.insert_head(PlayerNode(p3))
+
+    p4 = Player("4", "Dennis")
+    p4.score = 40
+    list.insert_head(PlayerNode(p4))
+
+    p5 = Player("5", "Eddie")
+    p5.score = 50
+    list.insert_head(PlayerNode(p5))
+
+    p6 = Player("6", "Fiona")
+    p6.score = 60
+    list.insert_head(PlayerNode(p6))
+
+    p7 = Player("7", "Gina")
+    p7.score = 70
+    list.insert_head(PlayerNode(p7))
+
+    p8 = Player("8", "Hanna")
+    p8.score = 80
+    list.insert_head(PlayerNode(p8))
+
+    p9 = Player("9", "Irene")
+    p9.score = 90
+    list.insert_head(PlayerNode(p9))
+
+    p10 = Player("10", "Jack")
+    p10.score = 100
+    list.insert_head(PlayerNode(p10))
+
+    # Display list
+    print("\nDisplay list:")
+    list.display()
+
+    # Sort list
+    print("\nSort list:")
+    list.sort()
+    list.display()
+
+    # Delete node with key "1"
+    print("\nDelete node with key \"1\"")
+    list.delete_by_Key("1")
+    list.display()
+
+    # Delete node with key "10"
+    print("\nDelete node with key \"10\"")
+    list.delete_by_Key("10")
+    list.display()
