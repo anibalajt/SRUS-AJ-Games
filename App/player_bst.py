@@ -69,3 +69,21 @@ class PlayerBST:
                 parent.right = node
         # Increase size
         self.__size += 1
+
+    def search(self, name):
+        """
+        Search for player in BST
+        @param name: name of player
+        @return: player object
+        """
+        # If root is None or root node's key matches the searched name
+        if self.__root is None or self.__root.player.name == name:
+            # Return root
+            return self.__root
+        # If key is less than root's key
+        elif name < self.__root.player.name:
+            # Search left subtree
+            return self.search(self.__root.left, name)
+        else:
+            # Search right subtree
+            return self.search(self.__root.right, name)
