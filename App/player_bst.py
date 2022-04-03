@@ -6,12 +6,8 @@
 # Date Created: 03/04/22
 # ----------------------------------------------------------------------
 
-# a. Add a new file to the folder app called player_bst.py. This will contain the class that is the Binary
-# Search Tree.
-# b. Create a class called PlayerBST in the file you just created. Within that class, create the initialiser
-# method and create an instance variable that
-
 from player_bnode import PlayerBNode
+from player import Player
 
 
 class PlayerBST:
@@ -34,6 +30,14 @@ class PlayerBST:
         """
         return self.__root
 
+    @root.setter
+    def root(self, root):
+        """
+        Setter for root
+        @param root: root node
+        """
+        self.__root = root
+
     def insert(self, player):
         """
         Insert player into the BST
@@ -43,7 +47,7 @@ class PlayerBST:
         node = PlayerBNode(player)
         if self.__root is None:  # If list is empty
             # Set root to new node
-            self.__root = node
+            self.root = node
         else:  # If list is not empty
             # Set current to root
             current = self.__root
@@ -67,8 +71,6 @@ class PlayerBST:
             else:  # If player's name is greater than parent's name
                 # Set parent's right to node
                 parent.right = node
-        # Increase size
-        self.__size += 1
 
     def search(self, name):
         """
@@ -76,14 +78,115 @@ class PlayerBST:
         @param name: name of player
         @return: player object
         """
-        # If root is None or root node's key matches the searched name
-        if self.__root is None or self.__root.player.name == name:
+        # Implement the following algorithm (recursively):
+        # 1. If the root is None or the root node’s key matches the searched name, return it.
+        # 2. If the key is less than the root’s key, search the left subtree.
+        # 3. If the key is greater than the root’s key, search the right subtree
+
+        # If root is None
+        if self.__root is None:
+            # Return None
+            return None
+        # If root's name matches name
+        elif self.__root.player.name == name:
             # Return root
-            return self.__root
-        # If key is less than root's key
+            return self.__root.player
+        # If name is less than root's name
         elif name < self.__root.player.name:
-            # Search left subtree
-            return self.search(self.__root.left, name)
+            # Call recursive function
+            return self.__search(self.__root.left, name)
+        # If name is greater than root's name
         else:
-            # Search right subtree
-            return self.search(self.__root.right, name)
+            # Call recursive function
+            return self.__search(self.__root.right, name)
+
+    def __search(self, node, name):
+        print("__search")
+        """
+        Recursive function to search for player in BST
+        @param node: node
+        @param name: name of player
+        @return: player object
+        """
+        # If node is not None
+        if node is not None:
+            # If node's name matches name
+            if node.player.name == name:
+                # Return node
+                return node.player
+            # If name is less than node's name
+            elif name < node.player.name:
+                # Call recursive function
+                return self.__search(node.left, name)
+            # If name is greater than node's name
+            else:
+                # Call recursive function
+                return self.__search(node.right, name)
+        # If node is None
+        else:
+            # Return None
+            return None
+
+    def balance(self):
+        """
+        Balance BST
+        """
+        # Create new BST
+        new_bst = PlayerBST()
+        # Call recursive function
+        self.__balance(new_bst, self.__root)
+        # Set root to new BST's root
+        self.root = new_bst.root
+
+    def __balance(self, new_bst, node):
+        """
+        Recursive function to balance BST
+        @param new_bst: new BST
+        @param node: node
+        """
+        # If node is not None
+        if node is not None:
+            # Call recursive function
+            self.__balance(new_bst, node.left)
+            # Call recursive function
+            self.__balance(new_bst, node.right)
+            # Insert node into new BST
+            new_bst.insert(node.player)
+
+    def __str__(self):
+        """
+        String representation of BST
+        @return: string representation of BST
+        """
+        # Create empty string
+        string = ""
+        # If root is not None
+        if self.__root is not None:
+            # Call recursive function
+            string = self.__str__(self.__root)
+        # Return string
+        return string
+
+    def __str__(self, node):
+        """
+        Recursive function to string representation of BST
+        @param node: node
+        @return: string representation of BST
+        """
+        # If node is not None
+        if node is not None:
+            # Return string representation of node
+            return str(node.player) + "\n" + self.__str__(node.left) + self.__str__(node.right)
+
+
+# test all methods on this class
+# if __name__ == '__main__':
+#     # create a new player BST
+#     bst = PlayerBST()
+#     # create a new player
+#     players = [Player("1", "John"), Player("2", "Bob"), Player("3", "Tom"), Player(
+#         "4", "Alan"), Player("5", "Ellen"), Player("6", "Karen"), Player("7", "Wendy")]
+
+#     # add players to the BST
+#     for player in players:
+#         bst.insert(player)

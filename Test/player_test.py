@@ -70,7 +70,8 @@ class PlayerTestCase(unittest.TestCase):
         """
         Test bubble sort
         """
-        players = [Player("1", "Andres"), Player("2", "John"), Player("3", "Jane")]
+        players = [Player("1", "Andres"), Player(
+            "2", "John"), Player("3", "Jane")]
         players[0].score = 10
         players[1].score = 5
         players[2].score = 15
@@ -80,9 +81,6 @@ class PlayerTestCase(unittest.TestCase):
         assert players[0].name == 'Jane'
         assert players[1].name == 'Andres'
         assert players[2].name == 'John'
-
-    
-
 
 
 if __name__ == "__main__":

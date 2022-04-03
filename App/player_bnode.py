@@ -6,12 +6,6 @@
 # Date Created: 03/04/22
 # ----------------------------------------------------------------------
 
-# Create a class called PlayerBNode in the file you just created. Create an initialiser method that accept
-# one argument: player. It should assign that value to a private instance variable. Create a property for
-# that value too. Add two more private instance variable: one that points to the left sub-tree and one
-# that points to the right sub-tree. Initialise those variables with None. Create getters (or properties) and
-# setters for these values.
-
 class PlayerBNode:
     """
     Binary Search Tree class
@@ -25,6 +19,14 @@ class PlayerBNode:
         self.__player = player
         self.__left = None
         self.__right = None
+
+    @property
+    def player(self):
+        """
+        Getter for player
+        @return: player object
+        """
+        return self.__player
 
     @property
     def left(self):
